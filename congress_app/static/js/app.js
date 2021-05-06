@@ -268,16 +268,38 @@ function getStateCodes() {
 }
 
 codes = getStateCodes();
+console.log(codes.length);
+async function getCids() {
+  let houseCids = [];
+  let senateCids = [];
+  let s = 0;
+  for (var i = 0; i < codes.length; i++) {
+    console.log(codes[i]);
+    // console.log("gets here");
+    const res = await fetch(
+      `${getLegislatorsURL}&id=${codes[i]}&apikey=${openSecretsAPIKey}&output=json`
+    );
+    const resJson = await res.json();
+    const legislators = resJson.response.legislator;
+    console.log("leg len:", legislators);
+    for (var i = 0; i < legislators.length; i++) {
+      // console.log(legislators[i]["@attributes"]);
+      // if (legislators[i]["@attributes"].office[2] === "S") {
+      //   console.log("yes");
+      //   senateCids.push(legislators[i]["@attributes"].cid);
+      //   console.log(senateCids);
+      // }
+    }
+  }
+  return senateCids;
+}
 
-codes.forEach((code) => {
-  fetch(
-    `${getLegislatorsURL}&id=${code}&apikey=${openSecretsAPIKey}&output=json`
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data.response.legislator);
-    })
-    .catch((err) => console.log("error in getLegislatorURL error:", err));
-});
+getCids().then(r => console.log(r)).catch(err => console.log(err))
+
+// console.log(getCids());
+// prettier-ignore
+// (async () => {
+//   console.log("yooo");
+//   const r = await getCids();
+//   console.log(r);
+// });
