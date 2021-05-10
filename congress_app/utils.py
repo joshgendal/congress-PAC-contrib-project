@@ -1,5 +1,8 @@
-import os, json
+import os, json, requests
 from django.conf import settings
+openSecretsAPIKey = "a8551db7eb798ce16ca3413e4cb6a30d"
+getLegislatorsURL = "http://www.opensecrets.org/api/?method=getLegislators"
+opnSecretsUrl = "${getLegislatorsURL}&id=${code}&apikey=${openSecretsAPIKey}&output=json"
 
 """
 A function to get US State Code List
@@ -15,3 +18,12 @@ def get_state_code_list():
   data.close()
   return state_codes
   
+def get_cid_list(codes):
+  cid_list = []
+  for code in codes:
+    r = requests.get(f"{getLegislatorsURL}&id={code}&apikey={openSecretsAPIKey}&output=json")
+    for i in r.json()["response"]["legislator"]:
+      if isinstance(i, dict):
+        cid_list.append(i["@attributes"]["cid"])
+        print(len(cid_list))
+  return cid_list
