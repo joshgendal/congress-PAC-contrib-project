@@ -23,3 +23,15 @@ def register(request):
     User.objects.create(first_name=first_name, last_name=last_name, email=email, password=pw_hash)
     return redirect('/register')  
   return render(request, 'register.html')
+
+def login(request):
+  if request.method == "POST":
+    email = request.POST['email']
+    password = request.POST['password']
+    if not User.objects.authenticate(email, password):
+      messages.error(request, 'Invalid email/password')
+      return redirect('/login')
+    user = User.objects.get(email=email)
+    messages.success(request, 'You have succesfully logged in')
+    return redirect('/')
+  return render(request, 'login.html')

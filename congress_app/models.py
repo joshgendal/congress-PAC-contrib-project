@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.fields import DateTimeField
-import re
+import re, bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class UserManager(models.Manager):
@@ -24,6 +24,14 @@ class UserManager(models.Manager):
     if form['password'] != form['confirm']:
       errors['password'] = 'Passwords do not match'
     return errors
+  
+  def authenticate(self, email, password):
+    users = self.filter(email=email)
+    if not users:
+      return False
+    
+    user = users[0]
+    return bcrypt.checkpw(password.encode(), user.password.encode())
 
 class User(models.Model):
   first_name = models.CharField(max_length=45)
