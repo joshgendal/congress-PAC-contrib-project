@@ -45,3 +45,16 @@ class User(models.Model):
 
   def __str__(self):
     return f"{self.first_name} {self.last_name} {self.email}"
+
+class MemberOfCongress(models.Model):
+  first_name = models.CharField(max_length=45)
+  last_name = models.CharField(max_length=45)
+  cid = models.CharField(max_length=50)
+  state = models.CharField(max_length=10)
+  party = models.CharField(max_length=10)
+  chamber = models.CharField(max_length=5)
+  first_elected = models.IntegerField()
+  total_contributions = models.FloatField()
+
+  def __str__(self):
+    return f"{self.first_name} {self.last_name} {self.party}"
