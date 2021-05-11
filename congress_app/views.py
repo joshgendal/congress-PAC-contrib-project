@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import User
 import bcrypt
 
@@ -8,6 +9,12 @@ def index(request):
 
 def register(request):
   if request.method == "POST":
+    # validate user info
+    errors = User.objects.validate_registration(request.POST)
+    if errors:
+      for e in errors.values():
+        messages.error(request, e)
+      return redirect('/register')
     first_name = request.POST['first_name']
     last_name = request.POST['last_name']
     email = request.POST['email']
