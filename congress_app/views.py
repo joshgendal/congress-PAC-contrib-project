@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-from .models import User, MemberOfCongress
+from .models import User, MemberOfCongress, Rating
 import bcrypt
 from .utils import get_state_code_list, get_cid_list, get_candidate_summaries
 openSecretsAPIKey = "a8551db7eb798ce16ca3413e4cb6a30d"
@@ -37,11 +37,44 @@ def login(request):
       messages.error(request, 'Invalid email/password')
       return redirect('/login')
     user = User.objects.get(email=email)
+    request.session['user_id'] = user.id
     messages.success(request, 'You have succesfully logged in')
     return redirect('/')
   return render(request, 'login.html')
 
 # This is the view function that will add the contribution api data into the db
+
+
+def members_contributions_table(request):
+  all_members = MemberOfCongress.objects.all()
+  print(all_members)
+  context = {
+    "all_members": all_members
+  }
+  return render(request, 'members_contributions.html', context)
+
+def rate(request, cid):
+  member_to_rate = MemberOfCongress.objects.get(cid=cid)
+  print('USER IS:', request.session['user_id'])
+  context = {
+    "member": member_to_rate
+  }
+  return render(request, 'rate.html', context)
+
+# Add user rating
+def add_rating(request):
+  if request.method == "POST":
+    # Query member to rate
+    cid = request.POST['member_cid']
+    member_to_rate = MemberOfCongress.objects.get(cid=cid)
+    user_id = request.session['user_id']
+    user = User.objects.get(id=user_id)
+    rating = request.POST['rating']
+    Rating.objects.create(rating=rating, user=user, member=member_to_rate)
+  return redirect('/')
+
+
+
 def add_api_data(request):
   if request.method == "POST":
     # 1. get list of US state codes
@@ -64,12 +97,3 @@ def add_api_data(request):
 def deleteMemberData(request):
   MemberOfCongress.objects.all().delete()
   return redirect("/")
-
-def members_contributions_table(request):
-  all_members = MemberOfCongress.objects.all()
-  print(all_members)
-  context = {
-    "all_members": all_members
-  }
-  return render(request, 'members_contributions.html', context)
-

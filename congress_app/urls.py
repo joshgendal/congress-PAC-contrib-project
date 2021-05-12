@@ -7,5 +7,7 @@ urlpatterns = [
     path('login', views.login),
     path('add-api-data-to-db', views.add_api_data),
     path('delete-all-members', views.deleteMemberData),
-    path('members-contributions-table', views.members_contributions_table)
+    path('members-contributions-table', views.members_contributions_table),
+    path('rate/<str:cid>', views.rate),
+    path('add-rating', views.add_rating)
 ]

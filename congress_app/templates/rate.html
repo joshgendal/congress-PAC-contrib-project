@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rate {{ member.last_name }}, {{ member.first_name }}</title>
+    {% include "partials/cdn.html" %}
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h1>
+            Rate {{ member.last_name }}, {{ member.first_name }}
+            {{member.total_contributions }}
+          </h1>
+          <form action="/add-rating" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="member_cid" value="{{ member.cid }}" />
+            <div class="form-group">
+              <label for="rating">Rating</label>
+              <select name="rating" id="" class="custom-select">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

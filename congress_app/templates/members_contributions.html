@@ -8,46 +8,56 @@
     {% include "partials/cdn.html" %}
   </head>
   <body>
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">cid</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">State</th>
-          <th scope="col">Party</th>
-          <th scope="col">Chamber</th>
-          <th scope="col">Contributions</th>
-          <th scope="col">First Elected</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for member in all_members %}
-        <tr>
-          <th scope="row">{{ member.cid }}</th>
-          <td>{{ member.first_name }}</td>
-          <td>{{ member.last_name }}</td>
-          <td>{{ member.state }}</td>
-          <td>{{ member.party }}</td>
-          <td>{{ member.chamber }}</td>
-          <td>{{ member.total_contributions }}</td>
-          <td>{{ member.first_elected }}</td>
-        </tr>
-        {% endfor %} {% comment %}
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-        {% endcomment %}
-      </tbody>
-    </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">cid</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">State</th>
+                <th scope="col">Party</th>
+                <th scope="col">Chamber</th>
+                <th scope="col">Contributions</th>
+                <th scope="col">First Elected</th>
+                <th scope="col">Rate Member</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for member in all_members %}
+              <tr>
+                <th scope="row">{{ member.cid }}</th>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
+                <td>{{ member.state }}</td>
+                <td>{{ member.party }}</td>
+                <td>{{ member.chamber }}</td>
+                <td>{{ member.total_contributions }}</td>
+                <td>{{ member.first_elected }}</td>
+                <td>
+                  <a href="/rate/{{member.cid}}"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      fill="currentColor"
+                      class="bi bi-arrow-right-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
+                      /></svg
+                  ></a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
