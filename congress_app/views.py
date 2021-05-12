@@ -64,20 +64,12 @@ def add_api_data(request):
 def deleteMemberData(request):
   MemberOfCongress.objects.all().delete()
   return redirect("/")
-# Create your views here.
-def index(request):
-  # r = requests.get(f"{candidate_summary_url}&cid=N00007360&apikey={openSecretsAPIKey}&output=json")
-  # print(r.json()["response"]["summary"]["@attributes"])
-  # attributes = r.json()["response"]["summary"]["@attributes"]
-  
-  # cids = []
 
-  
-
-
-  # for i in r.json()["response"]["legislator"]:
-  #   cids.append(i['@attributes']['cid'])
-  #   # print(len(i['@attributes']['cid']))
-  # print(len(cids))
-  return render(request, "index.html")
+def members_contributions_table(request):
+  all_members = MemberOfCongress.objects.all()
+  print(all_members)
+  context = {
+    "all_members": all_members
+  }
+  return render(request, 'members_contributions.html', context)
 

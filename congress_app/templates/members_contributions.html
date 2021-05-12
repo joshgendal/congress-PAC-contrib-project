@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Members Contributions</title>
+    {% include "partials/cdn.html" %}
+  </head>
+  <body>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">cid</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">State</th>
+          <th scope="col">Party</th>
+          <th scope="col">Chamber</th>
+          <th scope="col">Contributions</th>
+          <th scope="col">First Elected</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for member in all_members %}
+        <tr>
+          <th scope="row">{{ member.cid }}</th>
+          <td>{{ member.first_name }}</td>
+          <td>{{ member.last_name }}</td>
+          <td>{{ member.state }}</td>
+          <td>{{ member.party }}</td>
+          <td>{{ member.chamber }}</td>
+          <td>{{ member.total_contributions }}</td>
+          <td>{{ member.first_elected }}</td>
+        </tr>
+        {% endfor %} {% comment %}
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+        {% endcomment %}
+      </tbody>
+    </table>
+  </body>
+</html>
