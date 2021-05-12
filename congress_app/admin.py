@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, MemberOfCongress
+from .models import User, MemberOfCongress, Rating
 
 
 @admin.register(User)
@@ -10,4 +10,6 @@ class UserAdmin(admin.ModelAdmin):
 class MOCAdmin(admin.ModelAdmin):
   list_display = ('first_name', 'last_name', 'party', 'chamber')
 
-# Register your models here.
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+  list_display = ('rating', 'user', 'member', 'created_at')

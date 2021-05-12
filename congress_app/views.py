@@ -54,9 +54,9 @@ def add_api_data(request):
     cand_summaries = get_candidate_summaries(cid_list)
     for i in cand_summaries:
       name = i["cand_name"]
-      name_split = name.split(',')
-      first_name = name_split[0]
-      last_name = name_split[1][1:]
+      name_split = name.split(', ')
+      first_name = name_split[1]
+      last_name = name_split[0]
       MemberOfCongress.objects.create(first_name=first_name, last_name=last_name, cid=i["cid"], state=i["state"], party=i["party"], chamber=i["chamber"], first_elected=i["first_elected"], total_contributions=i["total"])
     return redirect("/")
   return render(request, 'add-api-data.html')
