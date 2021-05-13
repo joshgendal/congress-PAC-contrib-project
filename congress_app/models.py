@@ -61,7 +61,14 @@ class MemberOfCongress(models.Model):
 
 class Rating(models.Model):
   rating = models.IntegerField()
-  user = models.ForeignKey(User, related_name="rating", on_delete=models.CASCADE)
+  user = models.ForeignKey(User, related_name="ratings", on_delete=models.CASCADE)
+  member = models.OneToOneField(MemberOfCongress, on_delete=models.CASCADE, primary_key=True)
+  created_at = DateTimeField(auto_now_add=True, null=True)
+  updated_at = DateTimeField(auto_now=True, null=True)
+
+class Opinion(models.Model):
+  text = models.TextField()
+  user = models.ForeignKey(User, related_name="opinions", on_delete=models.CASCADE)
   member = models.OneToOneField(MemberOfCongress, on_delete=models.CASCADE, primary_key=True)
   created_at = DateTimeField(auto_now_add=True, null=True)
   updated_at = DateTimeField(auto_now=True, null=True)

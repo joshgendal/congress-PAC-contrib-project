@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
-from .models import User, MemberOfCongress, Rating
+from .models import User, MemberOfCongress, Rating, Opinion
 import bcrypt
 from .utils import get_state_code_list, get_cid_list, get_candidate_summaries
 openSecretsAPIKey = "a8551db7eb798ce16ca3413e4cb6a30d"
@@ -39,7 +39,7 @@ def login(request):
     user = User.objects.get(email=email)
     request.session['user_id'] = user.id
     messages.success(request, 'You have succesfully logged in')
-    return redirect('/')
+    return redirect('/dashboard')
   return render(request, 'login.html')
 
 # This is the view function that will add the contribution api data into the db
@@ -59,7 +59,7 @@ def rate(request, cid):
   context = {
     "member": member_to_rate
   }
-  return render(request, 'rate.html', context)
+  return render(request, 'rate_and_comment.html', context)
 
 # Add user rating
 def add_rating(request):
@@ -71,12 +71,15 @@ def add_rating(request):
     user = User.objects.get(id=user_id)
     rating = request.POST['rating']
     Rating.objects.create(rating=rating, user=user, member=member_to_rate)
+    return redirect("/dashboard")
   return redirect('/')
 
 def dashboard(request):
   user = User.objects.get(id=request.session['user_id'])
+  all_members = MemberOfCongress.objects.all()
   context = {
-    "user": user
+    "user": user,
+    "all_members": all_members
   }
   return render(request, 'dashboard.html', context)
 
