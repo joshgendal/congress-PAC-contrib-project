@@ -73,6 +73,12 @@ def add_rating(request):
     Rating.objects.create(rating=rating, user=user, member=member_to_rate)
   return redirect('/')
 
+def dashboard(request):
+  user = User.objects.get(id=request.session['user_id'])
+  context = {
+    "user": user
+  }
+  return render(request, 'dashboard.html', context)
 
 
 def add_api_data(request):

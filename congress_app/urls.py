@@ -9,5 +9,6 @@ urlpatterns = [
     path('delete-all-members', views.deleteMemberData),
     path('members-contributions-table', views.members_contributions_table),
     path('rate/<str:cid>', views.rate),
-    path('add-rating', views.add_rating)
+    path('add-rating', views.add_rating),
+    path('dashboard', views.dashboard)
 ]
