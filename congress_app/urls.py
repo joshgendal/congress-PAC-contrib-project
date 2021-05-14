@@ -10,5 +10,7 @@ urlpatterns = [
     path('members-contributions-table', views.members_contributions_table),
     path('rate-comment/<str:cid>', views.rate),
     path('add-rating', views.add_rating),
-    path('dashboard', views.dashboard)
+    path('dashboard', views.dashboard),
+    path('change-chamber', views.change_chamber),
+    path('change-party', views.change_party)
 ]

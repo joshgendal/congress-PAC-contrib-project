@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% include "partials/header.html" %}
-    <title>Rate {{ member.last_name }}, {{ member.first_name }}</title>
+  {% include "partials/header.html" %}
+  <title>Rate {{ member.last_name }}, {{ member.first_name }}</title>
+    
+    
   </head>
   <body>
     {% include "partials/navbar.html" %}
     <div class="container">
       <div class="row">
-        <div class="col-md-8">
-          <h1>
-            Rate {{ member.last_name }}, {{ member.first_name }}
-            {{member.total_contributions }}
-          </h1>
+        <div class="col-12">
+          <div style="text-align: center" class="col-12">
+            <h2>
+              {{ member.last_name }}, {{ member.first_name }}: 
+              {{ member.party }} {{ member.chamber }} from {{ member.state }}
+              
+            </h2>
+            <h4>2020 contributions: ${{member.total_contributions }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="rating-form-header">Add your rating and opinion about this member</p>
           <form action="/add-rating" method="post">
             {% csrf_token %}
             <input type="hidden" name="member_cid" value="{{ member.cid }}" />
@@ -30,9 +41,14 @@
                 <option value="10">10</option>
               </select>
             </div>
+            <div class="form-group">
+              <label for="opinion">Opinion</label>
+              <textarea name="opinion" id="" cols="30" rows="5" class="form-control"></textarea>
+            </div>
             <button class="btn btn-primary">Submit</button>
           </form>
         </div>
+      </div>
       </div>
     </div>
   </body>

@@ -68,7 +68,9 @@ def add_rating(request):
     cid = request.POST['member_cid']
     member_to_rate = MemberOfCongress.objects.get(cid=cid)
     user_id = request.session['user_id']
+    opinion = request.POST['opinion']
     user = User.objects.get(id=user_id)
+    Opinion.objects.create(text=opinion, user=user, member=member_to_rate)
     rating = request.POST['rating']
     Rating.objects.create(rating=rating, user=user, member=member_to_rate)
     return redirect("/dashboard")
@@ -83,6 +85,31 @@ def dashboard(request):
   }
   return render(request, 'dashboard.html', context)
 
+def change_chamber(request):
+  members = MemberOfCongress.objects.all()
+  for i in members:
+    if i.chamber == "H":
+      i.chamber = "House"
+      i.save()
+    if i.chamber == "S":
+      i.chamber = "Senate"
+      i.save()
+    
+  return redirect('/members-contributions-table')
+
+def change_party(request):
+  members = MemberOfCongress.objects.all()
+  for i in members:
+    if i.party == "D":
+      i.party = "Democrat"
+      i.save()
+    if i.party == "R":
+      i.party = "Republican"
+      i.save()
+    if i.party == "I":
+      i.pary = "Independent"
+      i.save()
+  return redirect('/members-contributions-table')
 
 def add_api_data(request):
   if request.method == "POST":
