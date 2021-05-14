@@ -32,7 +32,8 @@
                 <td>{{ member.state }}</td>
                 <td>{{ member.party }}</td>
                 <td>{{ member.chamber }}</td>
-                <td>{{ member.total_contributions }}</td>
+                {% load humanize %}
+                <td>${{ member.total_contributions|intcomma }}</td>
                 <td>{{ member.first_elected }}</td>
                 <td>
                   <a href="/rate-comment/{{member.cid}}"

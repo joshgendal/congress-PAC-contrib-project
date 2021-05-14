@@ -111,6 +111,11 @@ def modify_edit_opinion(request):
     opinion_to_edit.save()
   return redirect('/dashboard')
 
+def signout(request):
+  if 'user_id' in request.session:
+    del request.session['user_id']
+  return redirect("/")
+
 def change_chamber(request):
   members = MemberOfCongress.objects.all()
   for i in members:
