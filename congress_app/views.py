@@ -79,9 +79,11 @@ def add_rating(request):
 def dashboard(request):
   user = User.objects.get(id=request.session['user_id'])
   all_members = MemberOfCongress.objects.all()
+  all_opinions = Opinion.objects.all()
   context = {
     "user": user,
-    "all_members": all_members
+    "all_members": all_members,
+    "all_opinions": all_opinions
   }
   return render(request, 'dashboard.html', context)
 

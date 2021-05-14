@@ -15,6 +15,14 @@
             <li class="list-group-item">
               You rated {{ i.member.first_name }} {{ i.member.last_name }}: {{ i.rating }}
             </li>
+            {% for j in all_opinions %}
+              {% if j.member.cid == i.member.cid %}
+                <p>{{ j.text }}</p>
+              {% endif %}
+            {% endfor %}
+
+
+
           {% endfor %}        
         </ul>
       </div>
