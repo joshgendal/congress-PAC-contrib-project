@@ -21,15 +21,17 @@
                 <p class="opinion-text">Your opinion: {{ j.text }}</p>
               {% endif %}
             {% endfor %}
-
-
-
           {% endfor %}        
         </ul>
       </div>
     </div>
     <div class="row" style="margin-top: 80px;">
       <div class="col-12">
+        {% if messages %}
+          {% for msg in messages %}
+            <p class="error-text">{{ msg }}</p>
+          {% endfor %}
+        {% endif %}
         <table class="table table-striped">
           <thead class="thead-dark">
             <tr>

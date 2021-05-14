@@ -38,7 +38,6 @@ def login(request):
       return redirect('/login')
     user = User.objects.get(email=email)
     request.session['user_id'] = user.id
-    messages.success(request, 'You have succesfully logged in')
     return redirect('/dashboard')
   return render(request, 'login.html')
 
@@ -47,15 +46,20 @@ def login(request):
 
 def members_contributions_table(request):
   all_members = MemberOfCongress.objects.all()
-  print(all_members)
   context = {
     "all_members": all_members
   }
   return render(request, 'members_contributions.html', context)
 
 def rate(request, cid):
+  if not 'user_id' in request.session:
+    messages.error(request, 'You must be logged in to rate and give your opinion')
+    return redirect(request.META["HTTP_REFERER"])
+  user_to_validate = User.objects.get(id=request.session['user_id'])
   member_to_rate = MemberOfCongress.objects.get(cid=cid)
-  print('USER IS:', request.session['user_id'])
+  if not Rating.objects.validate_only_one_rating_per_member_by_user(user_to_validate, member_to_rate):
+    messages.error(request, 'You have already rated & opined this member')
+    return redirect(request.META["HTTP_REFERER"])
   context = {
     "member": member_to_rate
   }

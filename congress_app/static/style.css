@@ -40,3 +40,14 @@
 .navbar-dark .navbar-nav .nav-link {
   color: white;
 }
+
+.error-text {
+  color: red;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+ul {
+  list-style-type: none;
+}

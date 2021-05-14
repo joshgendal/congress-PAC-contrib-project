@@ -59,12 +59,24 @@ class MemberOfCongress(models.Model):
   def __str__(self):
     return f"{self.first_name} {self.last_name} {self.party}"
 
+class RatingManager(models.Manager):
+  # function to validate that the user can only rate each member ONCE and only ONCE
+  def validate_only_one_rating_per_member_by_user(self, user, member):
+    for i in user.ratings.all():
+      if i.member.cid == member.cid:
+        print('GETS HERE')
+        return False
+    return True
+      
+
 class Rating(models.Model):
   rating = models.IntegerField()
   user = models.ForeignKey(User, related_name="ratings", on_delete=models.CASCADE)
   member = models.OneToOneField(MemberOfCongress, on_delete=models.CASCADE, primary_key=True)
   created_at = DateTimeField(auto_now_add=True, null=True)
   updated_at = DateTimeField(auto_now=True, null=True)
+
+  objects = RatingManager()
 
 class Opinion(models.Model):
   text = models.TextField()

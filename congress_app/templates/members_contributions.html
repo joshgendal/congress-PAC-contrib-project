@@ -9,6 +9,11 @@
       <div class="row">
         <div class="col-12">
           <h2 class="text-center">Elected Members of the 2020 Congress</h2>
+          {% if messages %}
+            {% for msg in messages %}
+              <p class="error-text">{{ msg }}</p>
+            {% endfor %}
+          {% endif %}
           <table class="table table-striped">
             <thead class="thead-dark">
               <tr>

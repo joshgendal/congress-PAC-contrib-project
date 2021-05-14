@@ -14,5 +14,6 @@ urlpatterns = [
     path('change-party', views.change_party),
     path('edit-rating-opinion', views.modify_edit_opinion),
     path('edit-rating-opinion/<str:member_cid>', views.edit_rating_opinion),
-    path('signout', views.signout)
+    path('signout', views.signout),
+    path('rate-feed', views.rate_feed),
 ]
