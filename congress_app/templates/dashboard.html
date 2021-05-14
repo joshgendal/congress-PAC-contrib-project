@@ -14,10 +14,11 @@
           {% for i in user.ratings.all %}
             <li class="list-group-item">
               You rated {{ i.member.first_name }} {{ i.member.last_name }}: {{ i.rating }}
+              <span>{{ i.updated_at }}</span>
             </li>
             {% for j in all_opinions %}
               {% if j.member.cid == i.member.cid %}
-                <p>{{ j.text }}</p>
+                <p class="opinion-text">Your opinion: {{ j.text }}</p>
               {% endif %}
             {% endfor %}
 

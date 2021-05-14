@@ -25,3 +25,14 @@
 .red {
   color: red;
 }
+
+.opinion-text {
+  padding-left: 100px;
+  padding-top: 15px;
+  color: #007bff;
+}
+
+.list-group-item > span {
+  color: grey;
+  margin-left: 8px;
+}
