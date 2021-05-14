@@ -36,3 +36,7 @@
   color: grey;
   margin-left: 8px;
 }
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}

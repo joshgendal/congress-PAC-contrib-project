@@ -14,7 +14,7 @@
           {% for i in user.ratings.all %}
             <li class="list-group-item">
               You rated {{ i.member.first_name }} {{ i.member.last_name }}: {{ i.rating }}
-              <span>{{ i.updated_at }}</span>
+              <span>{{ i.updated_at }} <a href="/edit-rating-opinion/{{ i.member.cid }}">edit</a></span>
             </li>
             {% for j in all_opinions %}
               {% if j.member.cid == i.member.cid %}

@@ -24,6 +24,11 @@
           >Contributions</a
         >
       </li>
+      {% if 'user_id' in request.session %}
+      <li class="nav-item">
+        <a href="/dashboard" class="nav-link">Dashboard</a>
+      </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

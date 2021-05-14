@@ -12,5 +12,7 @@ urlpatterns = [
     path('add-rating', views.add_rating),
     path('dashboard', views.dashboard),
     path('change-chamber', views.change_chamber),
-    path('change-party', views.change_party)
+    path('change-party', views.change_party),
+    path('edit-rating-opinion', views.modify_edit_opinion),
+    path('edit-rating-opinion/<str:member_cid>', views.edit_rating_opinion),
 ]

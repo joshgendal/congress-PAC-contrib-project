@@ -87,6 +87,30 @@ def dashboard(request):
   }
   return render(request, 'dashboard.html', context)
 
+def edit_rating_opinion(request, member_cid):  
+  member = MemberOfCongress.objects.get(cid=member_cid)
+  member_rating = Rating.objects.get(member=member)
+  member_opinion = Opinion.objects.get(member=member)
+  context = {
+    "rating": member_rating,
+    "opinion": member_opinion
+  }
+  return render(request, 'edit_rating_opinion.html', context)
+
+def modify_edit_opinion(request):
+  if request.method == "POST":
+    member_cid = request.POST['member_cid']
+    edited_rating = request.POST['rating']
+    edited_opinion = request.POST['opinion']
+    member = MemberOfCongress.objects.get(cid=member_cid)
+    rating_to_edit = Rating.objects.get(member=member)
+    opinion_to_edit = Opinion.objects.get(member=member)
+    rating_to_edit.rating = edited_rating
+    rating_to_edit.save()
+    opinion_to_edit.text = edited_opinion
+    opinion_to_edit.save()
+  return redirect('/dashboard')
+
 def change_chamber(request):
   members = MemberOfCongress.objects.all()
   for i in members:
