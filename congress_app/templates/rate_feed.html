@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include "partials/header.html" %}
+  <title>Rate Feed</title>
+  </head>
+  <body>
+    {% include "partials/navbar.html" %}
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3>Rating Feed</h3>
+          <ul class="list-group lg-margin-top ">
+            {% for rating in all_ratings %}
+              <li class="list-group-item">
+                {% if 'user_id' in request.session %}
+                  {% if request.session.user_id == rating.user.id %}
+                    You
+                  {% else %}
+                    {{ rating.user.first_name }} {{ rating.user.last_name }}
+                  {% endif %}
+                {% else %}
+                  {{ rating.user.first_name }} {{ rating.user.last_name }} rated
+                {% endif %}
+                rated <span class="member-text">{{ rating.member.first_name }} {{ rating.member.last_name }}</span>, 
+                {{ rating.member.party }}
+                {% load humanize %}
+                who raised <span class="green">${{ rating.member.total_contributions|intcomma }}</span> 
+                from PACs <span class="rating-text">{{ rating.rating }}</span>
+                <span class="updated-time-text">on {{ rating.updated_at }}</span>
+                {% if 'user_id' in request.session %}
+                  {% if rating.user.id == request.session.user_id %}
+                    <a href="edit-rating-opinion/{{ rating.member.cid }}">Edit</a>
+                  {% endif %}
+                {% endif %}
+
+              </li>
+
+              {% for opinion in all_opinions %}
+                {% if rating.member.cid == opinion.member.cid %}
+                  {% if 'user_id' in request.session %}
+
+                    {% if opinion.user.id == request.session.user_id %}
+                      <p class="opinion-text">Your opinion: {{ opinion.text }}</p>
+                    {% else %}
+                      <p class="opinion-text">{{ rating.user.first_name }}'s opinion: {{ opinion.text }}</p>
+                    {% endif %}
+
+                  {% else %}
+                  <p class="opinion-text">{{ rating.user.first_name }}'s opinion: {{ opinion.text }}</p>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}          
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+  </body>

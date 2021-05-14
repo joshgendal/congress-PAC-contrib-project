@@ -22,14 +22,18 @@
       <li class="nav-item">
         <a class="nav-link" href="/">Contributions</a>
       </li>
-      {% if 'user_id' in request.session %}
+      <li class="nav-item">
+        <a class="nav-link" href="/rate-feed">Rate Feed</a>
+      </li>
+
+      {% comment %} links ONLY available to logged in users {% endcomment %}
+      {%if 'user_id' in request.session%}
       <li class="nav-item">
         <a href="/dashboard" class="nav-link">Dashboard</a>
       </li>
       <li class="nav-item">
         <a href="/signout" class="nav-link">Signout</a>
       </li>
-
       {% endif %}
     </ul>
   </div>

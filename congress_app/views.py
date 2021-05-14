@@ -26,7 +26,7 @@ def register(request):
     password = request.POST['password']
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
     User.objects.create(first_name=first_name, last_name=last_name, email=email, password=pw_hash)
-    return redirect('/register')  
+    return redirect('/login')  
   return render(request, 'register.html')
 
 def login(request):
@@ -40,9 +40,6 @@ def login(request):
     request.session['user_id'] = user.id
     return redirect('/dashboard')
   return render(request, 'login.html')
-
-# This is the view function that will add the contribution api data into the db
-
 
 def members_contributions_table(request):
   all_members = MemberOfCongress.objects.all()
@@ -119,6 +116,15 @@ def signout(request):
   if 'user_id' in request.session:
     del request.session['user_id']
   return redirect("/")
+
+def rate_feed(request):
+  all_ratings = Rating.objects.all()
+  all_opinions = Opinion.objects.all()
+  context = {
+    'all_ratings': all_ratings,
+    'all_opinions': all_opinions
+  }
+  return render(request, 'rate_feed.html', context)
 
 def change_chamber(request):
   members = MemberOfCongress.objects.all()

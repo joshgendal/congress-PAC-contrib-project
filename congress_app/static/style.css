@@ -32,7 +32,7 @@
   color: #007bff;
 }
 
-.list-group-item > span {
+.updated-time-text {
   color: grey;
   margin-left: 8px;
 }
@@ -50,4 +50,16 @@
 
 ul {
   list-style-type: none;
+}
+
+.green {
+  color: green;
+}
+
+.rating-text {
+  font-weight: 800;
+}
+
+.member-text {
+  font-weight: 600;
 }
