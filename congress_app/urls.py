@@ -16,4 +16,5 @@ urlpatterns = [
     path('edit-rating-opinion/<str:member_cid>', views.edit_rating_opinion),
     path('signout', views.signout),
     path('rate-feed', views.rate_feed),
+    path('rating/delete/<str:member_cid>', views.delete_rating)
 ]

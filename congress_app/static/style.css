@@ -54,6 +54,7 @@ ul {
 
 .green {
   color: green;
+  font-weight: 600;
 }
 
 .rating-text {
@@ -62,4 +63,8 @@ ul {
 
 .member-text {
   font-weight: 600;
+}
+
+.delete-text {
+  color: red;
 }

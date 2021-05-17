@@ -89,6 +89,7 @@ def dashboard(request):
   return render(request, 'dashboard.html', context)
 
 def edit_rating_opinion(request, member_cid):  
+
   member = MemberOfCongress.objects.get(cid=member_cid)
   member_rating = Rating.objects.get(member=member)
   member_opinion = Opinion.objects.get(member=member)
@@ -100,16 +101,22 @@ def edit_rating_opinion(request, member_cid):
 
 def modify_edit_opinion(request):
   if request.method == "POST":
-    member_cid = request.POST['member_cid']
     edited_rating = request.POST['rating']
     edited_opinion = request.POST['opinion']
+    member_cid = request.POST['member_cid']
     member = MemberOfCongress.objects.get(cid=member_cid)
-    rating_to_edit = Rating.objects.get(member=member)
-    opinion_to_edit = Opinion.objects.get(member=member)
-    rating_to_edit.rating = edited_rating
-    rating_to_edit.save()
-    opinion_to_edit.text = edited_opinion
-    opinion_to_edit.save()
+    user = User.objects.get(id=request.session['user_id'])
+    rating_query = Rating.objects.filter(member=member).filter(user=user)
+    rating = rating_query[0]
+    opinion_query = Opinion.objects.filter(member=member).filter(user=user)
+    opinion = opinion_query[0]
+    print('Rating to delete:', rating.__dict__)
+    print('Rating to delete:', opinion.__dict__)
+    
+    rating.rating = edited_rating
+    rating.save()
+    opinion.text = edited_opinion
+    opinion.save()
   return redirect('/dashboard')
 
 def signout(request):
@@ -125,6 +132,20 @@ def rate_feed(request):
     'all_opinions': all_opinions
   }
   return render(request, 'rate_feed.html', context)
+
+def delete_rating(request, member_cid):
+  member = MemberOfCongress.objects.get(cid=member_cid)
+  user = User.objects.get(id=request.session['user_id'])
+  rating_query = Rating.objects.filter(member=member).filter(user=user)
+  rating = rating_query[0]
+  opinion_query = Opinion.objects.filter(member=member).filter(user=user)
+  opinion = opinion_query[0]
+  print('Rating to delete:', rating.__dict__)
+  print('Rating to delete:', opinion.__dict__)
+  rating.delete()
+  opinion.delete()
+  return redirect(request.META["HTTP_REFERER"])
+
 
 def change_chamber(request):
   members = MemberOfCongress.objects.all()

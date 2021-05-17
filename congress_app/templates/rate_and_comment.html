@@ -16,7 +16,8 @@
               {{ member.party }} {{ member.chamber }} from {{ member.state }}
               
             </h2>
-            <h4>2020 contributions: ${{member.total_contributions }}</h4>
+            {% load humanize %}
+            <h4>2020 contributions: ${{member.total_contributions|intcomma }}</h4>
           </div>
         </div>
       </div>

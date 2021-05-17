@@ -30,6 +30,7 @@
                 {% if 'user_id' in request.session %}
                   {% if rating.user.id == request.session.user_id %}
                     <a href="edit-rating-opinion/{{ rating.member.cid }}">Edit</a>
+                    <a class="delete-text" href="rating/delete/{{ rating.member.cid }}">Delete</a>
                   {% endif %}
                 {% endif %}
 
