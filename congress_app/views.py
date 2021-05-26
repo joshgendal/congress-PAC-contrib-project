@@ -8,10 +8,10 @@ getLegislatorsURL = "http://www.opensecrets.org/api/?method=getLegislators"
 opnSecretsUrl = "${getLegislatorsURL}&id=${code}&apikey=${openSecretsAPIKey}&output=json"
 candidate_summary_url = "https://www.opensecrets.org/api/?method=candSummary"
 
-# Create your views here.
 def index(request):
   return render(request, 'index.html')
 
+# REGISTER VIEW
 def register(request):
   if request.method == "POST":
     # validate user info
@@ -88,14 +88,12 @@ def dashboard(request):
   }
   return render(request, 'dashboard.html', context)
 
-def edit_rating_opinion(request, member_cid):  
-
-  member = MemberOfCongress.objects.get(cid=member_cid)
-  member_rating = Rating.objects.get(member=member)
-  member_opinion = Opinion.objects.get(member=member)
+def edit_rating_opinion(request, rating_id):
+  rating_to_edit = Rating.objects.get(id=rating_id)
+  opinion_to_edit = Rating.objects.get(id=rating_to_edit.member.id)
   context = {
-    "rating": member_rating,
-    "opinion": member_opinion
+    "rating": rating_to_edit,
+    "opinion": opinion_to_edit
   }
   return render(request, 'edit_rating_opinion.html', context)
 
@@ -182,7 +180,7 @@ def add_api_data(request):
     print(len(cid_list))
     print(cid_list)
   # get list of dictionaries containing contribution data
-    cand_summaries = get_candidate_summaries(cid_list)
+    cand_summaries = get_candidate_sumrmaries(cid_list)
     for i in cand_summaries:
       name = i["cand_name"]
       name_split = name.split(', ')

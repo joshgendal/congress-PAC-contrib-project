@@ -12,9 +12,10 @@
         <h3>Your ratings:</h3>
         <ul class="list-group sm-margin-top">
           {% for i in user.ratings.all %}
+            <li>{{i.id}}</li>
             <li class="list-group-item">
               You rated {{ i.member.first_name }} {{ i.member.last_name }}: {{ i.rating }}
-              <span class="updated-time-text">{{ i.updated_at }} <a href="/edit-rating-opinion/{{ i.member.cid }}">Edit</a></span>
+              <span class="updated-time-text">{{ i.updated_at }} yoo {{ i.id }} <a href="/edit-rating-opinion/{{ i.id }}">Edit</a></span>
               <span><a class="delete-text" href="/rating/delete/{{ i.member.cid }}">Delete</a></span>
             </li>
             {% for j in all_opinions %}

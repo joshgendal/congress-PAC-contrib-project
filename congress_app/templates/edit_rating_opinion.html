@@ -19,7 +19,7 @@
       <div class="col-md-6">
         <form action="/edit-rating-opinion" method="post">
           {% csrf_token %}
-          <input type="hidden" name="member_cid" value="{{ rating.member.cid }}">
+          <input type="hidden" name="rating_id" value="{{ rating.id }}">
           <div class="form-group">
             <label for="rating">Rating</label>
             <select name="rating" id="" class="custom-select">

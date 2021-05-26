@@ -38,8 +38,8 @@ class User(models.Model):
   last_name = models.CharField(max_length=45)
   email = models.EmailField(unique=True)
   password = models.CharField(max_length=255)
-  created_at = DateTimeField(auto_now_add=True, null=True)
-  updated_at = DateTimeField(auto_now=True, null=True)
+  created_at = models.DateTimeField(auto_now_add=True, null=True)
+  updated_at = models.DateTimeField(auto_now=True, null=True)
 
   objects = UserManager()
 
